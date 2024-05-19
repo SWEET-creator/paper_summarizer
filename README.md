@@ -17,8 +17,6 @@
 
     The name of the integration is the one entered in step 2.
 
-    ![alt text](<./images/1.png>)
-
 4. Get Database ID
     In the same tab as in step 2, click on "Copy Link" and verify the database id.
     `https://www.notion.so/database_id?hoge`
