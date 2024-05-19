@@ -9,6 +9,8 @@
 
     Enter some name and go ahead.
 
+    Please note Secrets.
+
 3. Setting in Notion
 
     Open tabs from the three dots in the upper right corner.
