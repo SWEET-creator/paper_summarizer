@@ -18,7 +18,7 @@ def read_pdf(file_path):
 def get_summary(pdf_path):
     pdf_text = read_pdf(pdf_path)
 
-    prompt = "日本語で要約してください, KeywordsはEnglish, 以下のフォーマットで \
+    prompt = "あなたは優れた研究者です．日本語で要約してください, KeywordsはEnglish, 以下のフォーマットでできる限り具体的かつ簡潔に \
                 {\
                     \"Name\": ,\
                     \"どんなもの？\": ,\
