@@ -4,4 +4,3 @@ arxiv
 notion_client
 PyPDF2
 openai
-json
