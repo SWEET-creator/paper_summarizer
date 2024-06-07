@@ -24,6 +24,10 @@
     `https://www.notion.so/database_id?hoge`
 
 
+### install library
+```
+pip install -r requirement.txt
+```
 
 ### Create Config
 rename config_dummy.py -> config.py
