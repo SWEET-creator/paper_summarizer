@@ -35,25 +35,46 @@ def add_summary2notion(pdf_path):
     keywords = [{"name" : keyword} for keyword in json_data['Keywords']]
 
     new_page_data = {
-        "parent": {"database_id": database_id},
-        "properties": {},
-        "children": [
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": str(json_data)
-                            }
+        "parent": {
+            "database_id": database_id},
+            "properties": {},
+            "children": []
+        }
+
+    # JSONデータをキーごとにトグル形式に変換
+    for key, value in json_data.items():
+        toggle_block = {
+            "object": "block",
+            "type": "toggle",
+            "toggle": {
+                "rich_text": [
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": key
                         }
-                    ]
-                }
+                    }
+                ],
+                "children": [
+                    {
+                        "object": "block",
+                        "type": "paragraph",
+                        "paragraph": {
+                            "rich_text": [
+                                {
+                                    "type": "text",
+                                    "text": {
+                                        "content": str(value)
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
             }
-        ]
-    }
+        }
+        new_page_data["children"].append(toggle_block)
+
 
     for column in columns:
         if column == "Keywords":

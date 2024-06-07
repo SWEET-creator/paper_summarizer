@@ -6,6 +6,8 @@ client = OpenAI(
     api_key=config.OPENAI_API_KEY
 )
 
+columns = config.columns
+
 def read_pdf(file_path):
     with open(file_path, "rb") as file:
         reader = PyPDF2.PdfReader(file)
@@ -15,20 +17,22 @@ def read_pdf(file_path):
             text += page.extract_text()
     return text
 
+def create_prompt():
+
+    json_structure = '""""あなたは優秀な研究者です，日本語で要約してください, KeywordsはEnglish, 以下のフォーマットでできる限り最大限具体的に，参考文献はタイトル\n{\n'
+    for column in columns:
+        if column == "Keywords":
+            json_structure += f'    "{column}": ["", ""]\n'
+        else:
+            json_structure += f'    "{column}": ,\n'
+    json_structure += '}"""'
+
+    return json_structure
+
 def get_summary(pdf_path):
     pdf_text = read_pdf(pdf_path)
 
-    prompt = "あなたは優れた研究者です．日本語で要約してください, KeywordsはEnglish, 以下のフォーマットでできる限り具体的かつ簡潔に \
-                {\
-                    \"Name\": ,\
-                    \"どんなもの？\": ,\
-                    \"先行研究と比較して新規性は？\": ,\
-                    \"手法のキモは？\": ,\
-                    \"有効性はどのように検証された？\": ,\
-                    \"課題と議論は？\": ,\
-                    \"次に読む論文等は？\": ,\
-                    \"Keywords\":[" ", ]\
-                }"
+    prompt = create_prompt()
 
     try:
         completion = client.chat.completions.create(
